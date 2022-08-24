@@ -1,3 +1,7 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
 body {
     background-color: black;
 }
@@ -17,10 +21,13 @@ div.empty {
 div.coin {
     background: url("/assets/coin.gif");
     background-position: center;
+    background-size: contain;
 }
 
-div.pacman {
+div#pacman {
     background: url("/assets/pacman.gif");
     background-position: center;
     background-size: cover;
+    width: 20px;
+    height: 20px
 }
