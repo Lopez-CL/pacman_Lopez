@@ -30,3 +30,29 @@ function renderWorld(){
 }
 //renders Pacmac World//
 renderWorld();
+
+//render pacman//
+var pacman = {
+    y: 20,
+    x: 20
+}
+function renderPacman(){
+    document.getElementById("pacman").style.left = pacman.x + "px";
+    document.getElementById("pacman").style.top = pacman.y + "px";
+}
+renderPacman();
+
+//moves player//
+var top = 40;
+var left = 20;
+
+document.onkeydown = function(e){
+    if (e.keyCode == 37){
+        pacman.x -= 20;
+    }
+    if (e.keyCode == 39){
+        pacman.x += 20;
+    }
+    renderPacman();
+    console.log(e);
+}
