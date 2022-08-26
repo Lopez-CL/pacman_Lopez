@@ -1,9 +1,11 @@
 * {
     margin: 0px;
     padding: 0px;
+    font-family: 'VT323', monospace;
 }
 body {
     background-color: black;
+    display: flex;
 }
 div.row {
     margin:0px;
@@ -19,6 +21,10 @@ div.brick {
     background-color: blue;
 }
 
+/* div.empty {
+    background-color: black;
+} */
+
 
 div.coin {
     background: url("/assets/coin.gif");
@@ -32,4 +38,10 @@ div#pacman {
     width: 20px;
     height: 20px;
     position: absolute;
+}
+.scoreboard {
+    color: white;
+    display: inline;
+    margin: 10px;
+    font-size: 5em;
 }

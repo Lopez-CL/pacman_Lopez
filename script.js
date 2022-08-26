@@ -1,6 +1,6 @@
 var world = [
     [2,2,2,2,2,2,2,2,2,2], 
-    [2,1,2,1,1,1,1,1,1,2],
+    [2,0,2,1,1,1,1,1,1,2],
     [2,1,2,1,1,1,1,1,1,2],
     [2,1,2,1,1,1,1,1,1,2],
     [2,1,2,2,2,2,1,1,1,2],
@@ -10,7 +10,8 @@ var world = [
     [2,1,1,1,1,1,1,1,1,2],
     [2,2,2,2,2,2,2,2,2,2]
 ];
-
+var score = document.getElementById("score");
+var num = 0;
 function renderWorld(){
     var worldBlocks = '';
     for (i = 0; i < world.length; i++){
@@ -24,7 +25,7 @@ function renderWorld(){
                 worldBlocks += "<div class='empty'></div>";
         }
         worldBlocks += "</div>";
-        console.log( worldBlocks);
+        // console.log( worldBlocks);//
     }
     document.getElementById("world").innerHTML = worldBlocks;
 }
@@ -33,26 +34,37 @@ renderWorld();
 
 //render pacman//
 var pacman = {
-    y: 20,
-    x: 20
+    y: 1,
+    x: 1
 }
 function renderPacman(){
-    document.getElementById("pacman").style.left = pacman.x + "px";
-    document.getElementById("pacman").style.top = pacman.y + "px";
+    document.getElementById("pacman").style.left = pacman.x * 20 + "px";
+    document.getElementById("pacman").style.top = pacman.y * 20 + "px";
 }
+//score board//
 renderPacman();
-
-//moves player//
-var top = 40;
-var left = 20;
-
+//moves pacman//
 document.onkeydown = function(e){
-    if (e.keyCode == 37){
-        pacman.x -= 20;
+    if (e.keyCode == 37 && world[pacman.y][pacman.x-1] != 2 ){ //left//
+        pacman.x --;
     }
-    if (e.keyCode == 39){
-        pacman.x += 20;
+    else if (e.keyCode == 39 && world[pacman.y][pacman.x+1] != 2){//right//
+        pacman.x ++;
     }
+    else if (e.keyCode == 38 && world[pacman.y-1][pacman.x] != 2){//up//
+        pacman.y --;
+    }
+    else if (e.keyCode == 40 && world[pacman.y+1][pacman.x] != 2){//down//
+        pacman.y ++;
+    }
+    if (world[pacman.y][pacman.x] == 1){
+        world[pacman.y][pacman.x] = 0;
+        num = num + 5;
+        score.innerHTML = "Score: " + num;
+    }
+    if (num == 270){
+        location.reload();
+    }
+    renderWorld();
     renderPacman();
-    console.log(e);
 }
