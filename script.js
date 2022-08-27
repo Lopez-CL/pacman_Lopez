@@ -1,31 +1,44 @@
 var world = [
-    [2,2,2,2,2,2,2,2,2,2], 
-    [2,0,2,1,1,1,1,1,1,2],
-    [2,1,2,1,1,1,1,1,1,2],
-    [2,1,2,1,1,1,1,1,1,2],
-    [2,1,2,2,2,2,1,1,1,2],
-    [2,1,1,1,1,2,2,1,1,2],
-    [2,1,1,1,1,1,1,1,1,2],
-    [2,1,1,1,1,1,1,1,1,2],
-    [2,1,1,1,1,1,1,1,1,2],
-    [2,2,2,2,2,2,2,2,2,2]
+    [2,2,2,2,2,2,2,2,2,2,2,2,2,2], 
+    [2,0,1,3,1,1,1,1,1,1,1,1,1,2],
+    [2,1,1,1,1,1,1,1,1,1,1,1,1,2],
+    [2,2,2,2,1,1,1,1,1,1,1,1,1,2],
+    [2,1,3,2,1,1,1,1,1,1,1,1,1,2],
+    [2,1,1,2,2,1,1,2,1,1,1,1,1,2],
+    [2,1,1,1,1,1,3,2,2,2,1,1,1,2],
+    [2,1,1,1,1,1,1,1,1,2,1,1,1,2],
+    [2,1,1,1,1,1,1,1,1,2,1,3,1,2],
+    [2,2,2,2,2,2,2,2,2,2,2,2,2,2]
 ];
 var score = document.getElementById("score");
 var num = 0;
 function renderWorld(){
     var worldBlocks = '';
+    var coins = 0;
     for (i = 0; i < world.length; i++){
         worldBlocks += "<div class='row'>";
         for (var j = 0; j < world[i].length; j++){
-            if(world[i][j] == 2)
+            if(world[i][j] == 2){
                 worldBlocks += "<div class='brick'></div>";
-            else if(world[i][j] == 1)
+            }
+            if(world[i][j] == 1){
                 worldBlocks += "<div class='coin'></div>";
-            if(world[i][j] == 0)
+                coins = ++coins;
+            }
+            if(world[i][j] == 3){
+                worldBlocks += "<div class='cherry'></div>";
+                coins = ++coins;
+            }
+            if(world[i][j] == 0){
                 worldBlocks += "<div class='empty'></div>";
+            }
         }
         worldBlocks += "</div>";
-        // console.log( worldBlocks);//
+    }
+    console.log(coins);
+    if (coins == 0){
+        alert("You won! can you do it again?");
+        location.reload();
     }
     document.getElementById("world").innerHTML = worldBlocks;
 }
@@ -59,12 +72,20 @@ document.onkeydown = function(e){
     }
     if (world[pacman.y][pacman.x] == 1){
         world[pacman.y][pacman.x] = 0;
-        num = num + 5;
+        num = num + 10;
         score.innerHTML = "Score: " + num;
     }
-    if (num == 270){
-        location.reload();
+    if (world[pacman.y][pacman.x] == 3){
+        world[pacman.y][pacman.x] = 0;
+        num = num + 50;
+        score.innerHTML = "Score: " + num;
     }
     renderWorld();
     renderPacman();
+}
+
+function gameReset(){
+    if (num == maxCherry){
+        location.reload();
+    }
 }
