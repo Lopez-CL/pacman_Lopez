@@ -83,9 +83,3 @@ document.onkeydown = function(e){
     renderWorld();
     renderPacman();
 }
-
-function gameReset(){
-    if (num == maxCherry){
-        location.reload();
-    }
-}
